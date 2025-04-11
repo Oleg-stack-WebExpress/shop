@@ -25,6 +25,7 @@ if (array_key_exists('email', $_POST) && array_key_exists('password', $_POST)) {
 }
 
 require_once('templates/header.php');
+
 ?>
 
 <?php
