@@ -1,18 +1,31 @@
 <?php
-$title = "Админка - Товары";
-require_once('../../templates/header.php');
+require_once(dirname(__DIR__, 2) . '/utils/paths.php');
+require_once(getRootPath('templates/header.php'));
+require_once(getRootPath('services/auth.php'));
+require_once(getRootPath('services/products.php'));
+require_once(getRootPath('services/categories.php'));
+
+
+if (!isAuth()) {
+  redirect('/');
+}
+
+$s = isset($_GET['s']) ? htmlspecialchars($_GET['s']) : null;
+
+$title = "Админка - Продукты";
+$products = getProducts($s);
 ?>
 
-<h1 class="mb-4">Управление товарами</h1>
+<h1 class="mb-4">Управление продуктами</h1>
 
 <div class="d-flex justify-content-between mb-4">
   <div>
-    <a href="create.php" class="btn btn-success">Добавить товар</a>
-    <a href="categories.php" class="btn btn-success">Список категорий</a>
+    <a href="create.php" class="btn btn-success">Добавить продукт</a>
+    <a href="../categories" class="btn btn-success">Список категорий</a>
   </div>
 
-  <form class="d-flex">
-    <input class="form-control me-2" type="search" placeholder="Поиск товаров...">
+  <form action="#" method="GET" class="d-flex">
+    <input class="form-control me-2" type="search" name="s" placeholder="Поиск продуктов...">
     <button class="btn btn-outline-success" type="submit">Найти</button>
   </form>
 </div>
@@ -24,21 +37,21 @@ require_once('../../templates/header.php');
       <th>Название</th>
       <th>Категория</th>
       <th>Цена</th>
-      <th>Количество</th>
       <th>Действия</th>
     </tr>
   </thead>
   <tbody>
-    <?php for ($i = 1; $i <= 10; $i++): ?>
+    <?php for ($i = 0; $i < count($products); $i++): ?>
       <tr>
-        <td><?php echo $i; ?></td>
-        <td>Товар <?php echo $i; ?></td>
-        <td>Категория <?php echo rand(1, 3); ?></td>
-        <td><?php echo rand(100, 1000); ?> руб.</td>
-        <td><?php echo rand(0, 50); ?></td>
+        <td><?= $products[$i]['id'] ?></td>
+        <td><?= $products[$i]['name_products'] ?></td>
+        <td><?= $products[$i]['name_categories'] ?></td>
+        <td><?= $products[$i]['price'] ?></td>
+        <td><?= $products[$i]['description'] ?></td>
         <td>
-          <a href="edit.php?id=<?php echo $i; ?>" class="btn btn-sm btn-primary">Редактировать</a>
-          <button class="btn btn-sm btn-danger">Удалить</button>
+          <a href="/admin/products/edit.php?id=<?= $products[$i]['id'] ?>"
+            class="btn btn-sm btn-primary">Редактировать</a>
+          <a href="/admin/products/remove.php?id=<?= $products[$i]['id'] ?>" class="btn btn-sm btn-danger">Удалить</a>
         </td>
       </tr>
     <?php endfor; ?>
@@ -59,4 +72,4 @@ require_once('../../templates/header.php');
   </ul>
 </nav>
 
-<?php require_once('../../templates/footer.php');  ?>
+<?php require_once(getRootPath('templates/footer.php')); ?>

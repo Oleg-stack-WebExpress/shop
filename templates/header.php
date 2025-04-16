@@ -1,7 +1,6 @@
 <?
-
-require_once('services/auth.php');
-
+require_once(dirname(__DIR__, 1) . '/utils/paths.php');
+require_once(getRootPath('services/auth.php'));
 ?>
 
 <!doctype html>
@@ -37,7 +36,7 @@ require_once('services/auth.php');
                                 Админка
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="admin/products">Товары</a></li>
+                                <li><a class="dropdown-item" href="admin/products">Продукты</a></li>
                                 <li><a class="dropdown-item" href="admin/categories">Категории</a></li>
                             </ul>
                         </li>
@@ -55,10 +54,10 @@ require_once('services/auth.php');
                         <!--показывает войти и регистрацию, если пользователь неавторизован-->
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="auth.php">Войти</a>
+                            <a class="nav-link" href="/auth.php">Войти</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="register.php">Регистрация</a>
+                            <a class="nav-link" href="/register.php">Регистрация</a>
                         </li>
                     <?php endif; ?>
                 </ul>

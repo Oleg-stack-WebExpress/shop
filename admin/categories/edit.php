@@ -1,25 +1,62 @@
 <?php
-$title = "Админка - Редактирование категории";
-require_once('../../templates/header.php');
+require_once(dirname(__DIR__, 2) . '/utils/paths.php');
+require_once(getRootPath('templates/header.php'));
+require_once(getRootPath('services/auth.php'));
+require_once(getRootPath('services/categories.php'));
 
-$category_id = $_GET['id'] ?? 0;
+if (!isAuth()) {
+  redirect('/');
+}
+
+$title = "Админка - Редактирование категории";
+$error = null;
+
+$category_id = $_GET['id'] ?? null;
+if ($category_id == null) {
+  redirect('/admin/categories');
+}
+
+$category = getCategory($category_id);
+
+if (array_key_exists('name_categories', $_POST)) {
+  if (!empty($_POST['name_categories'])) {
+
+    $name_categories = htmlspecialchars($_POST['name_categories']);
+    $description = isset($_POST['description']) ? htmlspecialchars($_POST['description']) : null;
+
+
+    if (updateCategory($category_id, $name_categories, $description)) {
+      redirect('/admin/categories');
+    } else {
+      $error = 'Ошибка при редактировании категории';
+    }
+  }else{
+    $error = 'Заполните все данные';
+  }
+}
 ?>
 
 <h1 class="mb-4">Редактирование категории #<?php echo $category_id; ?></h1>
 
-<form>
+<?php
+if ($error) {
+  showError($error);
+}
+?>
+
+<form action="#" method="POST">
   <div class="mb-3">
-    <label for="name" class="form-label">Название</label>
-    <input type="text" class="form-control" id="name" value="Категория <?php echo $category_id; ?>" required>
+    <label for="name_categories" class="form-label">Название</label>
+    <input type="text" class="form-control" id="name_categories" name="name_categories" value="<?= $category['name_categories']; ?>" required>
   </div>
 
   <div class="mb-3">
     <label for="description" class="form-label">Описание</label>
-    <textarea class="form-control" id="description" rows="3">Описание категории <?php echo $category_id; ?></textarea>
+    <textarea class="form-control" id="description" name= "description" rows="3"><?= $category['description']; ?></textarea>
   </div>
 
   <button type="submit" class="btn btn-primary">Сохранить</button>
-  <a href="index.php" class="btn btn-secondary">Отмена</a>
+  <a href="/admin/categories" class="btn btn-secondary">Отмена</a>
 </form>
 
-<?php require_once('../../templates/footer.php'); ?>
+<?php require_once(getRootPath('templates/footer.php')); ?>

@@ -1,11 +1,10 @@
 <?php
+require_once('utils/paths.php');
+require_once(getRootPath('services/commons.php'));
+require_once(getRootPath('services/auth.php'));
+require_once(getRootPath('templates/header.php'));
+
 $title = "Регистрация";
-
-require_once('services/commons.php');
-require_once('services/auth.php');
-
-
-
 //Ищет пользователя в сессии
 if (isAuth()) {
   redirect('/admin/products');
