@@ -36,9 +36,8 @@ $title = "Главная";
             <div class="card h-55">
                 <div class="card-body">
                     <h5 class="card-title"><?= $products[$i]['name_products']; ?></h5>
-                    <p class="card-text"><?= $products[$i]['description']; ?>. Что такое продукт? Зачем нужен продукт?
-                    </p>
-                    <p class="text-muted"><?= $products[$i]['price']; ?> руб.</p>
+                    <p class="card-text"><?= $products[$i]['description']; ?></p>
+                    <p class="text-muted"><?= $products[$i]['price']; ?></p>
                     <a href="#" class="btn btn-success">В корзину</a>
                 </div>
             </div>

@@ -40,7 +40,7 @@ if ($error) {
 <form action="#" method="POST">
   <div class="mb-3">
     <label for="name" class="form-label">Название</label>
-    <input type="text" class="form-control" id="name_categories" name="name_categories">
+    <input type="text" class="form-control" id="name_categories" name="name_categories" required>
   </div>
 
   <div class="mb-3">

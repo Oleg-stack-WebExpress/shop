@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS categories (
 INSERT INTO categories (name_categories, description) VALUES ('Запчасти', 'Детали б/у от автомобилей');
 INSERT INTO categories (name_categories, description) VALUES ('Цветмет', 'Кузова, арматура, капоты');
 INSERT INTO categories (name_categories, description) VALUES ('Транспорт б/у', 'Детские парковые авто, картинги, мотоблоки');
-
+Комплектующие Винты, направляющие, ходовая часть
+Светоотражатели Стекла, полироли, катафота
 
 CREATE TABLE IF NOT EXISTS products (
 	id INT PRIMARY KEY AUTO_INCREMENT,

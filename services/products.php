@@ -1,20 +1,19 @@
 <?php
-require_once(dirname(__DIR__, 1) . '/utils/paths.php');
 require_once 'commons.php';
 
 function getProducts($search = null, $page = 1, $count = 8)
 {
     global $db;
-    $query = "SELECT * FROM products, categories";
-   
+    $query = "SELECT * FROM products";
+
     if ($search) {
-        $query .= ' WHERE name LIKE "%' . $search . '%"';
+        $query .= ' WHERE name_products LIKE "%' . $search . '%"';
     }
-    
+
     if ($page && $count) {
         $query .= ' LIMIT ' . $count . ' OFFSET ' . (($page - 1) * $count);
-    }   
-   
+    }
+
     $result = $db->query($query);
     return $result->fetch_all(MYSQLI_ASSOC);
 }
@@ -46,5 +45,3 @@ function removeProduct($id)
     $query = "DELETE FROM products WHERE id = $id";
     return $db->query($query);
 }
-
-

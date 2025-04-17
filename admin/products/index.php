@@ -14,9 +14,11 @@ $s = isset($_GET['s']) ? htmlspecialchars($_GET['s']) : null;
 
 $title = "Админка - Продукты";
 $products = getProducts($s);
+$categories = getCategories($s);
 ?>
 
 <h1 class="mb-4">Управление продуктами</h1>
+
 
 <div class="d-flex justify-content-between mb-4">
   <div>
@@ -25,7 +27,7 @@ $products = getProducts($s);
   </div>
 
   <form action="#" method="GET" class="d-flex">
-    <input class="form-control me-2" type="search" name="s" placeholder="Поиск продуктов...">
+    <input class="form-control me-2" type="search" name="s" placeholder="Поиск продуктов..." value="<?= $s ?>">
     <button class="btn btn-outline-success" type="submit">Найти</button>
   </form>
 </div>
@@ -37,6 +39,7 @@ $products = getProducts($s);
       <th>Название</th>
       <th>Категория</th>
       <th>Цена</th>
+      <th>Описание</th>
       <th>Действия</th>
     </tr>
   </thead>
@@ -45,7 +48,7 @@ $products = getProducts($s);
       <tr>
         <td><?= $products[$i]['id'] ?></td>
         <td><?= $products[$i]['name_products'] ?></td>
-        <td><?= $products[$i]['name_categories'] ?></td>
+        <td><?= $categories[$i]['name_categories'] ?></td>
         <td><?= $products[$i]['price'] ?></td>
         <td><?= $products[$i]['description'] ?></td>
         <td>

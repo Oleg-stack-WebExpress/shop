@@ -1,5 +1,4 @@
 <?php
-require_once(dirname(__DIR__, 1) . '/utils/paths.php');
 require_once 'commons.php';
 
 function login($email, $password)

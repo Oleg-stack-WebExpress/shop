@@ -1,5 +1,4 @@
 <?php
-require_once(dirname(__DIR__, 1) . '/utils/paths.php');
 require_once 'commons.php';
 
 function getCategories($search = null)
@@ -8,10 +7,9 @@ function getCategories($search = null)
     $query = "SELECT * FROM categories";
 
     if ($search) {
-        $query .= ' WHERE name LIKE "%' . $search . '%"';
+        $query .= ' WHERE name_categories LIKE "%' . $search . '%"';
     }
-    echo $query;
-
+    
     $result = $db->query($query);
     return $result->fetch_all(MYSQLI_ASSOC);
 }
